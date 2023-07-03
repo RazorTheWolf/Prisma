@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// Identify is an endpoint and execute the exchange function to get access tokens from Discord.
 func Identify(w http.ResponseWriter, r *http.Request) {
 	utils.UseCORS(&w, "*")
 	w.Header().Set("Content-Type", "application/json")
