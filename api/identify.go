@@ -15,11 +15,14 @@ func Identify(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 	value, status, reason := utils.Exchange(code)
 	if status == http.StatusUnauthorized || status == http.StatusBadRequest {
-		fmt.Fprint(w, reason)
+		_, err := fmt.Fprint(w, reason)
+		if err != nil {
+			log.Fatal("Failed to print to screen", err)
+		}
 	} else {
 		data, err := json.Marshal(value)
 		if err != nil {
-			log.Print("Error while parsing data to json", err)
+			log.Fatal("Error while parsing data to json", err)
 		}
 		fmt.Fprint(w, string(data))
 	}
