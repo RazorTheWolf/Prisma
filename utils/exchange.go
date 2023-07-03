@@ -21,8 +21,8 @@ const BaseURL = "https://discord.com/api/"
 
 func Exchange(configuration config.Configurations, code string) (OAuth2, int) {
 	var oauth2 OAuth2
-	body := EncodeParams(configuration.Discord.ClientId,
-		configuration.Discord.ClientSecret,
+	body := EncodeParams(configuration.CLIENT_ID,
+		configuration.CLIENT_SECRET,
 		code,
 		configuration.Discord.RedirectURI,
 		configuration.Discord.Scope)

@@ -7,8 +7,10 @@ import (
 
 // Configurations exports all the configs
 type Configurations struct {
-	Discord DiscordConfigurations
-	Server  ServerConfigurations
+	Discord       DiscordConfigurations
+	Server        ServerConfigurations
+	CLIENT_ID     string
+	CLIENT_SECRET string
 }
 
 type DiscordConfigurations struct {
@@ -27,6 +29,7 @@ func Config() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
 	viper.SetConfigType("yml")
+	viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err != nil {
 		log.Printf("Error reading config file, %s", err)
 	}
