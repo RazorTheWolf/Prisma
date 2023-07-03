@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"Prisma/utils/config"
 	"encoding/json"
 	"io"
 	"log"
@@ -20,13 +19,13 @@ type OAuth2 struct {
 
 const BaseURL = "https://discord.com/api/"
 
-func Exchange(configuration config.Configurations, code string) (OAuth2, int, string) {
+func Exchange(code string) (OAuth2, int, string) {
 	var oauth2 OAuth2
 	body := EncodeParams(os.Getenv("CLIENT_ID"),
 		os.Getenv("CLIENT_SECRET"),
 		code,
-		configuration.Discord.RedirectURI,
-		configuration.Discord.Scope)
+		os.Getenv("REDIRECT_URI"),
+		os.Getenv("SCOPE"))
 	res, err := http.Post(BaseURL+"oauth2/token", "application/x-www-form-urlencoded", strings.NewReader(body))
 	if err != nil {
 		log.Print("Error with the POST request", err)

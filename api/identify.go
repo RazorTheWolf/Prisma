@@ -2,7 +2,6 @@ package handler
 
 import (
 	"Prisma/utils"
-	c "Prisma/utils/config"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -12,7 +11,7 @@ import (
 func Identify(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	code := r.URL.Query().Get("code")
-	value, status, reason := utils.Exchange(c.Configuration, code)
+	value, status, reason := utils.Exchange(code)
 	if status == http.StatusUnauthorized || status == http.StatusBadRequest {
 		fmt.Fprint(w, reason)
 	} else {
