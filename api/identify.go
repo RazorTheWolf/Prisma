@@ -9,6 +9,7 @@ import (
 )
 
 func Identify(w http.ResponseWriter, r *http.Request) {
+	utils.UseCORS(&w, "*")
 	w.Header().Set("Content-Type", "application/json")
 	code := r.URL.Query().Get("code")
 	value, status, reason := utils.Exchange(code)

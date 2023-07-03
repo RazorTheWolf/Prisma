@@ -9,6 +9,10 @@ import (
 	"strings"
 )
 
+/*
+OAuth2 struct represent the response sent by Discord when succeeded.
+It is used to parse the received information to a struct for easy use.
+*/
 type OAuth2 struct {
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    int    `json:"expires_in"`
@@ -17,8 +21,10 @@ type OAuth2 struct {
 	TokenType    string `json:"token_type"`
 }
 
+// BaseURL represent the base URL to the Discord API
 const BaseURL = "https://discord.com/api/"
 
+// Exchange makes a POST request to https://discord.com/api/oauth2/token for exchanging a given code to access tokens.
 func Exchange(code string) (OAuth2, int, string) {
 	var oauth2 OAuth2
 	body := EncodeParams(os.Getenv("CLIENT_ID"),
