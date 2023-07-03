@@ -12,12 +12,9 @@ import (
 func Identify(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	code := r.URL.Query().Get("code")
-	value, status := utils.Exchange(c.Configuration, code)
-	if status == http.StatusBadRequest {
-		_, err := fmt.Fprint(w, "Invalid Code")
-		if err != nil {
-			return
-		}
+	value, status, reason := utils.Exchange(c.Configuration, code)
+	if status == http.StatusUnauthorized || status == http.StatusBadRequest {
+		fmt.Fprint(w, reason)
 	} else {
 		data, err := json.Marshal(value)
 		if err != nil {

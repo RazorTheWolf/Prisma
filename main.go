@@ -1,14 +1,13 @@
 package main
 
 import (
-	handler "Prisma/api"
 	c "Prisma/utils/config"
-	"log"
-	"net/http"
+	"fmt"
+	"github.com/spf13/viper"
 )
 
 func main() {
 	c.Config()
-	http.HandleFunc("/identify", handler.Identify)
-	log.Fatal(http.ListenAndServe(c.Configuration.Server.Port, nil))
+	fmt.Println(c.Configuration.CLIENT_SECRET)
+	fmt.Println(viper.Get("GOPATH"))
 }

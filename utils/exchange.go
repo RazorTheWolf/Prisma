@@ -3,7 +3,6 @@ package utils
 import (
 	"Prisma/utils/config"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -20,10 +19,8 @@ type OAuth2 struct {
 
 const BaseURL = "https://discord.com/api/"
 
-func Exchange(configuration config.Configurations, code string) (OAuth2, int) {
+func Exchange(configuration config.Configurations, code string) (OAuth2, int, string) {
 	var oauth2 OAuth2
-	fmt.Println(configuration.CLIENT_ID)
-	fmt.Println(configuration.CLIENT_SECRET)
 	body := EncodeParams(configuration.CLIENT_ID,
 		configuration.CLIENT_SECRET,
 		code,
@@ -47,5 +44,5 @@ func Exchange(configuration config.Configurations, code string) (OAuth2, int) {
 	if err != nil {
 		log.Print("Error while parsing data to struct", err)
 	}
-	return oauth2, res.StatusCode
+	return oauth2, res.StatusCode, string(b)
 }

@@ -1,6 +1,6 @@
 Discord:
-  ClientId: "" // USING VERCEL ENV
-  ClientSecret: "" // USING VERCEL ENV
+  ClientId: ""
+  ClientSecret: ""
   RedirectURI: "https://api-prisma.vercel.app/api/identify"
   Scope: "identify"
 
